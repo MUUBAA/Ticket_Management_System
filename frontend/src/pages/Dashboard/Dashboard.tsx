@@ -14,7 +14,7 @@ import StatusBadge from "../../components/common/StatusBadge/StatusBadge";
 import EmptyState from "../../components/common/EmptyState/EmptyState";
 import Table, { type TableColumn } from "../../components/common/Table/Table";
 import type { Ticket } from "../../types/ticket";
-import type { UpdateUserRequest } from "../../types/user";
+import type { UpdateUserRequest, User } from "../../types/user";
 import { dashboardService } from "@/services/dashboardService";
 
 const Dashboard: React.FC = () => {
@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
       lowCount: 0,
     },
   } = useAppSelector((state) => state.tickets);
-  const { users = [], currentUser } = useAppSelector((state) => state.users);
+  const { users = [] } = useAppSelector((state) => state.users);
 
   const { user } = useAuth();
 
@@ -74,8 +74,10 @@ const Dashboard: React.FC = () => {
 
   const [isEditingUser, setIsEditingUser] = useState(false);
 
-  const [selectedUser, setSelectedUser] =
-    useState<any>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const canEditSelectedUser =
+    isSuperAdmin || user?.userId === selectedUser?.userId;
 
   const [dashboardPagination, setDashboardPagination] = useState({
     page: 1,
@@ -91,53 +93,32 @@ const Dashboard: React.FC = () => {
     reportTo: null,
   });
 
-  const handleUserClick = async (
-    userId: number
-  ) => {
+  const handleUserClick = async (userId: number) => {
+    const result = await dispatch(fetchUserById(userId));
 
-    const result =
-      await dispatch(
-        fetchUserById(userId)
-      );
-
-    if (
-      fetchUserById.fulfilled.match(
-        result
-      )
-    ) {
-
-      const user =
-        result.payload;
+    if (fetchUserById.fulfilled.match(result)) {
+      const user = result.payload;
 
       setSelectedUser(user);
 
       setEditUserData({
-
-        name:
-          user.name || "",
-
-        email:
-          user.email || "",
-
-        companyName:
-          user.companyName || "",
-
-        empId:
-          user.empId || "",
-
-        designation:
-          user.designation || "",
-
-        reportTo:
-          user.reportTo || null,
+        name: user.name || "",
+        email: user.email || "",
+        companyName: user.companyName || "",
+        empId: user.empId || "",
+        designation: user.designation || "",
+        reportTo: user.reportTo || null,
       });
 
+      setIsEditingUser(false);
       setShowUserModal(true);
     }
   };
 
   const handleUpdateUser = async () => {
-    if (!currentUser?.userId) return;
+    if (!user?.userId || !selectedUser?.userId || !canEditSelectedUser) {
+      return;
+    }
 
     const result = await dispatch(
       updateUser({
@@ -1401,34 +1382,40 @@ const Dashboard: React.FC = () => {
                 Close
               </button>
 
-              {!isEditingUser ? (
-                <button
-                  onClick={() => setIsEditingUser(true)}
-                  className="
-                  px-5
-                  py-3
-                  rounded-xl
-                  bg-indigo-600
-                  text-white
-                  hover:bg-indigo-700
-                "
-                >
-                  Edit User
-                </button>
+              {canEditSelectedUser ? (
+                !isEditingUser ? (
+                  <button
+                    onClick={() => setIsEditingUser(true)}
+                    className="
+                    px-5
+                    py-3
+                    rounded-xl
+                    bg-indigo-600
+                    text-white
+                    hover:bg-indigo-700
+                  "
+                  >
+                    Edit User
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleUpdateUser}
+                    className="
+                    px-5
+                    py-3
+                    rounded-xl
+                    bg-green-600
+                    text-white
+                    hover:bg-green-700
+                  "
+                  >
+                    Save Changes
+                  </button>
+                )
               ) : (
-                <button
-                  onClick={handleUpdateUser}
-                  className="
-                  px-5
-                  py-3
-                  rounded-xl
-                  bg-green-600
-                  text-white
-                  hover:bg-green-700
-                "
-                >
-                  Save Changes
-                </button>
+                <div className="text-sm text-gray-500 self-center">
+                  Only this user or a SuperAdmin can edit these details.
+                </div>
               )}
             </div>
           </div>
