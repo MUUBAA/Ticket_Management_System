@@ -3,7 +3,7 @@ import React from 'react';
 interface StatCardProps {
   title: string;
   value: number | string;
-  icon: React.ReactNode;
+  icon: React.ReactElement<{ className?: string }>;
   bgColor: string;
   textColor: string;
   trend?: {
@@ -38,13 +38,9 @@ const StatCard: React.FC<StatCardProps> = ({
         </div>
         <div className={`${bgColor} ${textColor} p-4 rounded-lg flex items-center justify-center`}>
           <div className="w-8 h-8 flex items-center justify-center">
-            {React.isValidElement(icon) ? (
-              React.cloneElement(icon as React.ReactElement, {
-                className: `w-6 h-6 ${icon.props.className || ''}`,
-              })
-            ) : (
-              icon
-            )}
+            {React.cloneElement(icon, {
+              className: `w-6 h-6 ${icon.props.className || ''}`,
+            })}
           </div>
         </div>
       </div>

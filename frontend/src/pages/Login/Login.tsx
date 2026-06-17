@@ -5,6 +5,8 @@ import {
   Link,
 } from 'react-router-dom';
 
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+
 import { useAuth }
   from '../../hooks/useAuth';
 
@@ -34,6 +36,9 @@ const Login: React.FC = () => {
     }>({});
 
   const [isSubmitting, setIsSubmitting] =
+    useState(false);
+
+  const [showPassword, setShowPassword] =
     useState(false);
 
   const loginCompleted = useRef(false);
@@ -281,19 +286,32 @@ const Login: React.FC = () => {
                   Password
                 </label>
 
+                <div className="relative">
+
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
-                  className={`w-full h-14 px-4 rounded-2xl border text-sm outline-none transition-all
+                  className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
                   ${
                     errors.password
                       ? 'border-red-500'
                       : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100'
                   }`}
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                </button>
+
+                </div>
 
                 {errors.password && (
 

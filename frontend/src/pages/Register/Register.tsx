@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
+import { FiEye, FiEyeOff } from "react-icons/fi";
+
 import { useAuth } from "../../hooks/useAuth";
 
 import Button from "../../components/Button";
 
-import { validateEmail, validatePassword } from "../../utils/validators";
+import {
+  passwordRequirementsMessage,
+  validateEmail,
+  validatePassword,
+} from "../../utils/validators";
 // import { companyService } from "@/services/companyService";
 
 const Register: React.FC = () => {
@@ -38,6 +44,9 @@ const Register: React.FC = () => {
   }>({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // const [companies, setCompanies] = useState<string[]>([]);
 
@@ -186,6 +195,18 @@ const Register: React.FC = () => {
       [name]: value,
     }));
 
+    if (name === "password") {
+      setErrors((prev) => ({
+        ...prev,
+        password: value
+          ? validatePassword(value)
+            ? undefined
+            : passwordRequirementsMessage
+          : undefined,
+      }));
+      return;
+    }
+
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({
         ...prev,
@@ -317,19 +338,32 @@ const Register: React.FC = () => {
                     Password *
                   </label>
 
+                  <div className="relative">
+
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Create password"
-                    className={`w-full h-14 px-4 rounded-2xl border text-sm outline-none transition-all
+                    className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
                     ${
                       errors.password
                         ? "border-red-500"
                         : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     }`}
                   />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                  </button>
+
+                  </div>
 
                   {errors.password && (
                     <p className="text-red-500 text-sm mt-2">
@@ -338,8 +372,8 @@ const Register: React.FC = () => {
                   )}
 
                   <p className="text-xs text-gray-500 leading-6 mt-3">
-                    Must be at least 8 characters with uppercase, lowercase,
-                    number, and special character
+                    Must be at least 8 characters and include uppercase,
+                    lowercase, a number, and a special character
                   </p>
                 </div>
 
@@ -350,19 +384,32 @@ const Register: React.FC = () => {
                     Confirm Password *
                   </label>
 
+                  <div className="relative">
+
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Confirm password"
-                    className={`w-full h-14 px-4 rounded-2xl border text-sm outline-none transition-all
+                    className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
                     ${
                       errors.confirmPassword
                         ? "border-red-500"
                         : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     }`}
                   />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    {showConfirmPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                  </button>
+
+                  </div>
 
                   {errors.confirmPassword && (
                     <p className="text-red-500 text-sm mt-2">

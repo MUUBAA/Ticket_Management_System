@@ -3,7 +3,10 @@ import { TICKET_STATUS, TICKET_PRIORITIES, TICKET_TYPES } from './constants';
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+export const passwordRequirementsMessage =
+  'Password must be at least 8 characters and include uppercase, lowercase, a number, and a special character';
 
 export function validateEmail(email: string): boolean {
   return emailRegex.test(email);
@@ -46,7 +49,7 @@ export function validateLogin(email: string, password: string): ValidationErrors
   if (!password) {
     errors.password = 'Password is required';
   } else if (!validatePassword(password)) {
-    errors.password = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character';
+    errors.password = passwordRequirementsMessage;
   }
 
   return errors;
@@ -70,7 +73,7 @@ export function validateRegister(username: string, email: string, password: stri
   if (!password) {
     errors.password = 'Password is required';
   } else if (!validatePassword(password)) {
-    errors.password = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character';
+    errors.password = passwordRequirementsMessage;
   }
 
   return errors;
