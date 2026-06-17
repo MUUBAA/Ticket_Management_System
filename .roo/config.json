@@ -1,0 +1,22 @@
+{
+  "models": {
+    "architect": "qwen3.5:35b",
+    "backend": "deepseek-coder-v2:16b",
+    "frontend": "qwen2.5-coder:14b",
+    "database": "qwen2.5:7b"
+  },
+  "defaultRole": "architect",
+  "contextFolders": [
+    "frontend",
+    "backend",
+    "database",
+    "docs"
+  ],
+  "rules": [
+    "Use clean architecture",
+    "Backend must use Go with proper layering",
+    "Frontend must use React functional components with hooks",
+    "Database must be MSSQL with normalized schema",
+    "APIs must follow REST standards"
+  ]
+}

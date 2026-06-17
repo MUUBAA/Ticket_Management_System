@@ -1,0 +1,273 @@
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ticket-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ticket-form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ticket-form-label .required {
+  color: #dc2626;
+}
+
+.attachment-icon {
+  color: #6b7280;
+}
+
+.ticket-form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #374151;
+  background-color: white;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ticket-form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.ticket-form-textarea.input-error {
+  border-color: #dc2626;
+}
+
+.ticket-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input-error-message {
+  font-size: 0.75rem;
+  color: #dc2626;
+}
+
+.ticket-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* File Attachments */
+.file-attachments {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.file-attachment-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.file-icon {
+  font-size: 1.25rem;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.remove-file-btn {
+  padding: 4px 8px;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.remove-file-btn:hover {
+  background-color: #fecaca;
+}
+
+/* Audio Attachment */
+.audio-attachment {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.audio-attachment-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.audio-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.audio-icon {
+  color: #3b82f6;
+}
+
+.audio-name {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-audio-btn {
+  padding: 4px 8px;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.remove-audio-btn:hover {
+  background-color: #fecaca;
+}
+
+/* Attachment Options */
+.attachment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attachment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.attachment-btn {
+  padding: 6px 12px;
+  background-color: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.attachment-btn:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.attachment-hint {
+  font-size: 0.875rem;
+  color: #6b7280;
+  min-width: 80px;
+}
+
+.attachment-types {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-left: auto;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ticket-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .attachment-option {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .attachment-hint {
+    min-width: auto;
+  }
+}

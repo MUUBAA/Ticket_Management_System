@@ -1,0 +1,342 @@
+.comment-input {
+  width: 100%;
+}
+
+.comment-input-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #f3f4f6;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.comment-input-trigger:hover {
+  background-color: #e5e7eb;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.comment-input-trigger .comment-icon {
+  flex-shrink: 0;
+}
+
+.comment-form-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comment-textarea-wrapper {
+  width: 100%;
+}
+
+.comment-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #374151;
+  background-color: white;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comment-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.comment-form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.comment-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.comment-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-btn-primary {
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.comment-btn-primary:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.comment-btn-primary:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.comment-btn-secondary {
+  padding: 8px 16px;
+  background-color: white;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.comment-btn-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* File Attachments */
+.file-attachments {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.file-attachment-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.attachment-icon {
+  color: #6b7280;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.file-icon {
+  font-size: 1.25rem;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.remove-file-btn {
+  padding: 4px 8px;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.remove-file-btn:hover {
+  background-color: #fecaca;
+}
+
+/* Audio Attachment */
+.audio-attachment {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.audio-attachment-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.audio-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.audio-icon {
+  color: #3b82f6;
+}
+
+.audio-name {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-audio-btn {
+  padding: 4px 8px;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.remove-audio-btn:hover {
+  background-color: #fecaca;
+}
+
+/* Attachment Options */
+.attachment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.attachment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.attachment-btn {
+  padding: 6px 12px;
+  background-color: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.attachment-btn:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.attachment-hint {
+  font-size: 0.875rem;
+  color: #6b7280;
+  min-width: 80px;
+}
+
+.attachment-types {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-left: auto;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .comment-form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .attachment-options {
+    width: 100%;
+  }
+
+  .attachment-option {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .attachment-hint,
+  .attachment-types {
+    min-width: 0;
+    margin-left: 0;
+  }
+
+  .comment-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .comment-btn-primary,
+  .comment-btn-secondary {
+    width: 100%;
+  }
+
+  .comment-hint {
+    width: 100%;
+  }
+}
