@@ -11,6 +11,8 @@ type UserMaster struct {
 
 	CompanyName *string `json:"companyName"`
 
+	CompanyMail *string `json:"companyMail"`
+
 	EmpID *string `json:"empId"`
 
 	Email string `json:"email"`
@@ -55,6 +57,7 @@ type User struct {
 	UserID      int       `json:"userId"`
 	Name        string    `json:"name"`
 	CompanyName string    `json:"companyName"`
+	CompanyMail *string   `json:"companyMail"`
 	EmpID       string    `json:"empId"`
 	Email       string    `json:"email"`
 	Password    string    `json:"-"` // Don't expose password in JSON
@@ -70,6 +73,8 @@ type UserUpdate struct {
 	Name *string `json:"name"`
 
 	CompanyName *string `json:"companyName"`
+
+	CompanyMail *string `json:"companyMail"`
 
 	EmpID *string `json:"empId"`
 
@@ -88,13 +93,14 @@ type UserLogin struct {
 
 // UserRegister represents registration data
 type UserRegister struct {
-	Name        string `json:"name"`
-	Email       string `json:"email"`
-	Password    string `json:"password"`
-	CompanyName string `json:"companyName"`
-	Designation string `json:"designation"`
-	EmpID       string `json:"empId"`
-	ReportTo    *int   `json:"reportTo"`
+	Name        string  `json:"name"`
+	Email       string  `json:"email"`
+	Password    string  `json:"password"`
+	CompanyName string  `json:"companyName"`
+	CompanyMail *string `json:"companyMail"`
+	Designation string  `json:"designation"`
+	EmpID       string  `json:"empId"`
+	ReportTo    *int    `json:"reportTo"`
 }
 
 // UserResponse represents the response for authentication endpoints

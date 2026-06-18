@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"net/smtp"
+	"strings"
 )
 
 type EmailService struct{}
@@ -12,10 +13,17 @@ func NewEmailService() *EmailService {
 }
 
 func (s *EmailService) SendTicketCreatedEmail(
+
 	toEmail string,
+
+	ccEmails []string,
+
 	ticketID int,
+
 	ticketTitle string,
+
 	description string,
+
 ) error {
 
 	// =====================================
@@ -34,10 +42,11 @@ func (s *EmailService) SendTicketCreatedEmail(
 	smtpPort :=
 		"587"
 
-	fromName := "Buson Digital Services"
+	fromName :=
+		"Buson Digital Services"
 
 	// =====================================
-	// EMAIL BODY
+	// EMAIL SUBJECT
 	// =====================================
 
 	subject :=
@@ -46,6 +55,10 @@ func (s *EmailService) SendTicketCreatedEmail(
 			ticketID,
 			ticketTitle,
 		)
+
+	// =====================================
+	// EMAIL BODY
+	// =====================================
 
 	body :=
 		fmt.Sprintf(
@@ -78,15 +91,53 @@ http://164.52.217.188:8082/
 			fromName,
 		)
 
+	// =====================================
+	// CC HEADER
+	// =====================================
+
+	ccHeader := ""
+
+	if len(ccEmails) > 0 {
+
+		ccHeader =
+			"Cc: " +
+				strings.Join(
+					ccEmails,
+					",",
+				) +
+				"\r\n"
+	}
+
+	// =====================================
+	// EMAIL MESSAGE
+	// =====================================
+
 	message :=
 		[]byte(
 			"From: " + fromName + " <" + from + ">\r\n" +
 				"To: " + toEmail + "\r\n" +
+				ccHeader +
 				"Subject: " + subject + "\r\n" +
 				"MIME-Version: 1.0\r\n" +
 				"Content-Type: text/plain; charset=\"UTF-8\"\r\n\r\n" +
 				body,
 		)
+
+	// =====================================
+	// ALL RECIPIENTS
+	// =====================================
+
+	allRecipients :=
+		append(
+			[]string{
+				toEmail,
+			},
+			ccEmails...,
+		)
+
+	// =====================================
+	// SMTP AUTH
+	// =====================================
 
 	auth :=
 		smtp.PlainAuth(
@@ -96,14 +147,16 @@ http://164.52.217.188:8082/
 			smtpHost,
 		)
 
+	// =====================================
+	// SEND EMAIL
+	// =====================================
+
 	err :=
 		smtp.SendMail(
 			smtpHost+":"+smtpPort,
 			auth,
 			from,
-			[]string{
-				toEmail,
-			},
+			allRecipients,
 			message,
 		)
 

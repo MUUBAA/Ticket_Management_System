@@ -13,6 +13,8 @@ export interface User {
 
   companyName?: string;
 
+  companyMail?: string;
+
   empId?: string;
 
   email: string;
@@ -62,6 +64,7 @@ export interface RegisterRequest {
   email: string;
   password: string;
   companyName?: string;
+  companyMail?: string;
   designation?: string;
   empId?: string;
   reportTo?: number | null;
@@ -78,6 +81,8 @@ export interface UpdateUserRequest {
   name?: string;
 
   companyName?: string;
+
+  companyMail?: string;
 
   empId?: string;
 

@@ -29,6 +29,7 @@ const Register: React.FC = () => {
     password: "",
     confirmPassword: "",
     companyName: "",
+    companyMail: "",
     designation: "",
     empId: "",
   });
@@ -39,6 +40,7 @@ const Register: React.FC = () => {
     password?: string;
     confirmPassword?: string;
     companyName?: string;
+    companyMail?: string;
     designation?: string;
     empId?: string;
   }>({});
@@ -293,11 +295,10 @@ const Register: React.FC = () => {
                     onChange={handleChange}
                     placeholder="Enter your full name"
                     className={`w-full h-14 px-4 rounded-2xl border text-sm outline-none transition-all
-                    ${
-                      errors.name
+                    ${errors.name
                         ? "border-red-500"
                         : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                    }`}
+                      }`}
                   />
 
                   {errors.name && (
@@ -319,11 +320,10 @@ const Register: React.FC = () => {
                     onChange={handleChange}
                     placeholder="Enter your email"
                     className={`w-full h-14 px-4 rounded-2xl border text-sm outline-none transition-all
-                    ${
-                      errors.email
+                    ${errors.email
                         ? "border-red-500"
                         : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                    }`}
+                      }`}
                   />
 
                   {errors.email && (
@@ -340,28 +340,27 @@ const Register: React.FC = () => {
 
                   <div className="relative">
 
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Create password"
-                    className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
-                    ${
-                      errors.password
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                    }`}
-                  />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="Create password"
+                      className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
+                    ${errors.password
+                          ? "border-red-500"
+                          : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                        }`}
+                    />
 
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
-                  >
-                    {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                    >
+                      {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                    </button>
 
                   </div>
 
@@ -371,10 +370,10 @@ const Register: React.FC = () => {
                     </p>
                   )}
 
-                  <p className="text-xs text-gray-500 leading-6 mt-3">
+                  {/* <p className="text-xs text-gray-500 leading-6 mt-3">
                     Must be at least 8 characters and include uppercase,
                     lowercase, a number, and a special character
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* CONFIRM PASSWORD */}
@@ -386,34 +385,64 @@ const Register: React.FC = () => {
 
                   <div className="relative">
 
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="Confirm password"
-                    className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
-                    ${
-                      errors.confirmPassword
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                    }`}
-                  />
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      placeholder="Confirm password"
+                      className={`w-full h-14 px-4 pr-12 rounded-2xl border text-sm outline-none transition-all
+                    ${errors.confirmPassword
+                          ? "border-red-500"
+                          : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                        }`}
+                    />
 
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword((prev) => !prev)}
-                    aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
-                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
-                  >
-                    {showConfirmPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                      className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                    >
+                      {showConfirmPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                    </button>
 
                   </div>
 
                   {errors.confirmPassword && (
                     <p className="text-red-500 text-sm mt-2">
                       {errors.confirmPassword}
+                    </p>
+                  )}
+                </div>
+
+                {/* COMPANY ADMIN EMAILS */}
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                    Company Admin Emails
+                  </label>
+
+                  <input
+                    type="text"
+                    name="companyMail"
+                    value={formData.companyMail}
+                    onChange={handleChange}
+                    placeholder="admin1@company.com, admin2@company.com"
+                    className={`w-full h-14 px-4 rounded-2xl border text-sm outline-none transition-all
+    ${errors.companyMail
+                        ? "border-red-500"
+                        : "border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                      }`}
+                  />
+
+                  <p className="text-xs text-gray-500 mt-2">
+                    Multiple emails should be separated by commas
+                  </p>
+
+                  {errors.companyMail && (
+                    <p className="text-red-500 text-sm mt-2">
+                      {errors.companyMail}
                     </p>
                   )}
                 </div>

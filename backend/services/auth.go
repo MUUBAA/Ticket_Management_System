@@ -176,6 +176,8 @@ func (s *AuthService) Register(
 
 			company_name,
 
+			company_mail,
+
 			emp_id,
 
 			email,
@@ -198,6 +200,8 @@ func (s *AuthService) Register(
 			@name,
 
 			@company_name,
+
+			@company_mail,
 
 			@emp_id,
 
@@ -250,6 +254,11 @@ func (s *AuthService) Register(
 		sql.Named(
 			"company_name",
 			userData.CompanyName,
+		),
+
+		sql.Named(
+			"company_mail",
+			userData.CompanyMail,
 		),
 
 		sql.Named(
