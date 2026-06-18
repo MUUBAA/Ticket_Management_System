@@ -141,23 +141,32 @@ func (s *TicketService) CreateTicket(
 	}
 
 	// =====================================
-	// GET CREATOR EMAIL
+	// GET CREATOR EMAIL + COMPANY MAIL
 	// =====================================
 
 	var creatorEmail string
 
+	var companyMail sql.NullString
+
 	err = db.QueryRow(`
 
-		SELECT email
+	SELECT
 
-		FROM UserMaster
+		email,
 
-		WHERE user_id = @p1
+		company_mail
 
-	`,
+	FROM UserMaster
+
+	WHERE user_id = @p1
+
+`,
 		createdBy,
 	).Scan(
+
 		&creatorEmail,
+
+		&companyMail,
 	)
 
 	if err != nil {
@@ -182,6 +191,30 @@ func (s *TicketService) CreateTicket(
 		}
 
 		// =================================
+		// BUILD CC EMAIL LIST
+		// =================================
+
+		var ccEmails []string
+
+		if companyMail.Valid &&
+			companyMail.String != "" {
+
+			ccEmails =
+				strings.Split(
+					companyMail.String,
+					",",
+				)
+
+			for i := range ccEmails {
+
+				ccEmails[i] =
+					strings.TrimSpace(
+						ccEmails[i],
+					)
+			}
+		}
+
+		// =================================
 		// SEND EMAIL ASYNC
 		// =================================
 
@@ -194,6 +227,8 @@ func (s *TicketService) CreateTicket(
 				emailService.SendTicketCreatedEmail(
 
 					creatorEmail,
+
+					ccEmails,
 
 					ticketID,
 
