@@ -173,6 +173,7 @@ const Register: React.FC = () => {
         email: formData.email,
         password: formData.password,
         companyName: formData.companyName || undefined,
+        companyMail: formData.companyMail || undefined,
         designation: formData.designation || undefined,
         empId: formData.empId || undefined,
       });
