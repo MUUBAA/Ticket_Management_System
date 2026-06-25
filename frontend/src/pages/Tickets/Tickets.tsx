@@ -54,6 +54,7 @@ const Tickets: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const hasTicketIdSearch = debouncedSearch.trim() !== "";
 
   const [ticketPagination, setTicketPagination] = useState({
     page: 1,
@@ -492,67 +493,6 @@ const Tickets: React.FC = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div
-        className="
-        min-h-screen
-        flex
-        items-center
-        justify-center
-        bg-gray-50
-      "
-      >
-        <div
-          className="
-          bg-white
-          border
-          border-red-200
-          rounded-xl
-          shadow-sm
-          p-8
-          max-w-md
-          w-full
-          text-center
-        "
-        >
-          <div
-            className="
-            text-red-500
-            text-5xl
-            mb-4
-          "
-          >
-            ⚠️
-          </div>
-
-          <h2
-            className="
-            text-xl
-            font-semibold
-            text-gray-900
-            mb-2
-          "
-          >
-            Failed to Load Tickets
-          </h2>
-
-          <p
-            className="
-            text-gray-600
-            mb-6
-          "
-          >
-            {error}
-          </p>
-
-          <Button variant="primary" onClick={() => window.location.reload()}>
-            Retry
-          </Button>
-        </div>
-      </div>
-    );
-  }
   // =====================================
   // MAIN
   // =====================================
@@ -723,6 +663,22 @@ const Tickets: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {!loading && error && hasTicketIdSearch && (
+          <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-4 shadow-sm">
+            <div className="flex items-start gap-3">
+              <div className="text-red-500 text-2xl leading-none">⚠️</div>
+
+              <div>
+                <h3 className="text-base font-semibold text-red-900">
+                  Failed to Load Tickets
+                </h3>
+
+                <p className="mt-1 text-sm text-red-700">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* TABLE */}
 
