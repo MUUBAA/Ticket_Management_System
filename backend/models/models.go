@@ -123,7 +123,7 @@ type TokenResponse struct {
 
 // Ticket represents a ticket in the system
 type Ticket struct {
-	TicketID int `json:"ticketId"`
+	TicketID int64 `json:"ticketId"`
 
 	Title string `json:"title"`
 
@@ -260,8 +260,8 @@ type Pagination struct {
 
 // Comment represents a comment on a ticket
 type Comment struct {
-	CommentID   int          `json:"commentId"`
-	TicketID    int          `json:"ticketId"`
+	CommentID   int64        `json:"commentId"`
+	TicketID    int64        `json:"ticketId"`
 	UserName    string       `json:"userName"`
 	Message     string       `json:"message"`
 	CreatedAt   time.Time    `json:"createdAt"`
@@ -280,9 +280,9 @@ type CommentCreate struct {
 
 // Attachment represents an attachment
 type Attachment struct {
-	AttachmentID int `json:"attachmentId"`
+	AttachmentID int64 `json:"attachmentId"`
 
-	TicketID *int `json:"ticketId"`
+	TicketID *int64 `json:"ticketId"`
 
 	URL string `json:"url"`
 
@@ -294,7 +294,7 @@ type Attachment struct {
 
 	CreatedAt time.Time `json:"createdAt"`
 
-	CommentID *int `json:"commentId"`
+	CommentID *int64 `json:"commentId"`
 }
 
 // AttachmentCreate represents data for creating an attachment
@@ -310,7 +310,7 @@ type AttachmentCreate struct {
 
 // TicketDetail represents a ticket with its comments and attachments
 type TicketDetail struct {
-	TicketID int `json:"ticketId"`
+	TicketID int64 `json:"ticketId"`
 
 	Title string `json:"title"`
 

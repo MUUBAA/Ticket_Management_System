@@ -32,7 +32,7 @@ func (s *TicketService) CreateTicket(
 ) (*models.Ticket, error) {
 
 	var (
-		ticketID int
+		ticketID int64
 		traceID  string
 	)
 
@@ -297,7 +297,7 @@ func (s *TicketService) CreateTicket(
 // GetTicketByID retrieves a ticket by ID with comments and attachments
 func (s *TicketService) GetTicketByID(
 	db *sql.DB,
-	ticketID int,
+	ticketID int64,
 ) (*models.TicketDetail, error) {
 
 	query := `
@@ -325,7 +325,7 @@ WHERE t.ticket_id = @p1
 `
 
 	var (
-		ticketIDOut  int
+		ticketIDOut  int64
 		title        string
 		customerName sql.NullString
 		employeeName sql.NullString
@@ -589,7 +589,7 @@ func (s *TicketService) GetTickets(
 	ticketType string,
 	priority string,
 	search string,
-	ticketID int,
+	ticketID int64,
 	customerName string,
 	projectName string,
 	companyName string,
@@ -1767,7 +1767,7 @@ WHERE 1 = 1
 // UpdateTicket updates an existing ticket
 func (s *TicketService) UpdateTicket(
 	db *sql.DB,
-	ticketID int,
+	ticketID int64,
 	req *models.TicketUpdate,
 	updatedBy int,
 ) (*models.Ticket, error) {
@@ -1977,7 +1977,7 @@ func (s *TicketService) UpdateTicket(
 }
 
 // DeleteTicket deletes a ticket
-func (s *TicketService) DeleteTicket(db *sql.DB, ticketID int, isSoftDelete bool) error {
+func (s *TicketService) DeleteTicket(db *sql.DB, ticketID int64, isSoftDelete bool) error {
 	var err error
 	if isSoftDelete {
 		_, err = db.Exec("EXEC sp_DeleteTicket @ticket_id = ?", ticketID)
@@ -1995,7 +1995,7 @@ func (s *TicketService) DeleteTicket(db *sql.DB, ticketID int, isSoftDelete bool
 // AddComment adds a comment to a ticket
 func (s *TicketService) AddComment(
 	db *sql.DB,
-	ticketID int,
+	ticketID int64,
 	comment *models.CommentCreate,
 	createdBy int,
 ) (*models.Comment, error) {
@@ -2005,7 +2005,7 @@ func (s *TicketService) AddComment(
 	// =====================================
 
 	var (
-		commentID int
+		commentID int64
 		traceID   string
 	)
 
@@ -2172,7 +2172,7 @@ func (s *TicketService) AddComment(
 }
 
 // UpdateComment updates a comment
-func (s *TicketService) UpdateComment(db *sql.DB, commentID int, comment *models.CommentCreate, updatedBy int) (*models.Comment, error) {
+func (s *TicketService) UpdateComment(db *sql.DB, commentID int64, comment *models.CommentCreate, updatedBy int) (*models.Comment, error) {
 	_, err := db.Exec(`
 		EXEC sp_UpdateComment
 			@comment_id = ?,
@@ -2196,7 +2196,7 @@ func (s *TicketService) UpdateComment(db *sql.DB, commentID int, comment *models
 // DeleteComment deletes a comment
 func (s *TicketService) DeleteComment(
 	db *sql.DB,
-	commentID int,
+	commentID int64,
 ) error {
 
 	result, err :=
@@ -2238,8 +2238,8 @@ func (s *TicketService) DeleteComment(
 }
 
 // AddAttachment adds an attachment to a ticket or comment
-func (s *TicketService) AddAttachment(db *sql.DB, ticketID, commentID *int, url string, createdBy int) (*models.Attachment, error) {
-	var attachmentID int
+func (s *TicketService) AddAttachment(db *sql.DB, ticketID, commentID *int64, url string, createdBy int) (*models.Attachment, error) {
+	var attachmentID int64
 	var traceID string
 
 	if commentID != nil && *commentID > 0 {
@@ -2293,7 +2293,7 @@ func (s *TicketService) AddAttachment(db *sql.DB, ticketID, commentID *int, url 
 // AddAttachmentFromFile adds an attachment from a file upload
 func (s *TicketService) AddAttachmentFromFile(
 	db *sql.DB,
-	ticketID int,
+	ticketID int64,
 	file *multipart.FileHeader,
 	createdBy int,
 ) (*models.Attachment, error) {
@@ -2411,7 +2411,7 @@ func (s *TicketService) AddAttachmentFromFile(
 	// =====================================
 
 	var (
-		attachmentID int
+		attachmentID int64
 		traceID      string
 	)
 
@@ -2470,7 +2470,7 @@ func (s *TicketService) AddAttachmentFromFile(
 // AddAttachmentFromBase64 adds an attachment from base64 data
 func (s *TicketService) AddAttachmentFromBase64(
 	db *sql.DB,
-	ticketID int,
+	ticketID int64,
 	base64Data string,
 	fileName string,
 	fileType string,
@@ -2482,7 +2482,7 @@ func (s *TicketService) AddAttachmentFromBase64(
 	// =====================================
 
 	var (
-		attachmentID int
+		attachmentID int64
 		traceID      string
 	)
 
@@ -2543,7 +2543,7 @@ func (s *TicketService) AddAttachmentFromBase64(
 
 func (s *TicketService) AddCommentAttachmentFromBase64(
 	db *sql.DB,
-	commentID int,
+	commentID int64,
 	base64Data string,
 	fileName string,
 	fileType string,
@@ -2555,7 +2555,7 @@ func (s *TicketService) AddCommentAttachmentFromBase64(
 	// =====================================
 
 	var (
-		attachmentID int
+		attachmentID int64
 		traceID      string
 	)
 
@@ -2624,7 +2624,7 @@ func (s *TicketService) AddCommentAttachmentFromBase64(
 }
 
 // DeleteAttachment deletes an attachment
-func (s *TicketService) DeleteAttachment(db *sql.DB, attachmentID int, isCommentAttachment bool) error {
+func (s *TicketService) DeleteAttachment(db *sql.DB, attachmentID int64, isCommentAttachment bool) error {
 	var err error
 	if isCommentAttachment {
 		_, err = db.Exec("EXEC sp_DeleteCommentAttachment @attachment_id = ?", attachmentID)
@@ -2641,7 +2641,7 @@ func (s *TicketService) DeleteAttachment(db *sql.DB, attachmentID int, isComment
 
 func (s *TicketService) GetComments(
 	db *sql.DB,
-	ticketID int,
+	ticketID int64,
 ) ([]models.Comment, error) {
 
 	rows, err := db.Query(`
@@ -2747,7 +2747,7 @@ func (s *TicketService) GetComments(
 }
 
 // GetAttachments retrieves attachments for a ticket or comment
-func (s *TicketService) GetAttachments(db *sql.DB, ticketID, commentID *int, isCommentAttachment bool) ([]models.Attachment, error) {
+func (s *TicketService) GetAttachments(db *sql.DB, ticketID, commentID *int64, isCommentAttachment bool) ([]models.Attachment, error) {
 	var rows *sql.Rows
 	var err error
 
@@ -2783,22 +2783,34 @@ WHERE a.comment_id = @p1
 	var attachments []models.Attachment
 	for rows.Next() {
 		var attachment models.Attachment
-		var url sql.NullString
 		var base64Data sql.NullString
 		var fileName sql.NullString
 		var fileType sql.NullString
-		err := rows.Scan(
-			&attachment.AttachmentID,
-			&attachment.TicketID,
-			&attachment.URL,
-			&base64Data,
-			&fileName,
-			&fileType,
-			&attachment.CreatedAt,
-		)
+		if isCommentAttachment {
+			err := rows.Scan(
+				&attachment.AttachmentID,
+				&attachment.CommentID,
+				&attachment.URL,
+				&base64Data,
+				&fileName,
+				&fileType,
+				&attachment.CreatedAt,
+			)
 
-		if url.Valid {
-			attachment.URL = url.String
+			if err != nil {
+				return nil, fmt.Errorf("failed to scan attachment: %w", err)
+			}
+		} else {
+			err := rows.Scan(
+				&attachment.AttachmentID,
+				&attachment.TicketID,
+				&attachment.URL,
+				&attachment.CreatedAt,
+			)
+
+			if err != nil {
+				return nil, fmt.Errorf("failed to scan attachment: %w", err)
+			}
 		}
 
 		if base64Data.Valid {
@@ -2811,9 +2823,6 @@ WHERE a.comment_id = @p1
 
 		if fileType.Valid {
 			attachment.FileType = &fileType.String
-		}
-		if err != nil {
-			return nil, fmt.Errorf("failed to scan attachment: %w", err)
 		}
 		attachments = append(attachments, attachment)
 	}

@@ -155,11 +155,13 @@ func (h *TicketHandler) GetTickets(c *gin.Context) {
 	// =====================================
 
 	ticketID, _ :=
-		strconv.Atoi(
+		strconv.ParseInt(
 			c.DefaultQuery(
 				"ticketId",
 				"0",
 			),
+			10,
+			64,
 		)
 
 	// =====================================
@@ -401,11 +403,13 @@ func (h *TicketHandler) ExportTickets(c *gin.Context) {
 	// =====================================
 
 	ticketID, _ :=
-		strconv.Atoi(
+		strconv.ParseInt(
 			c.DefaultQuery(
 				"ticketId",
 				"0",
 			),
+			10,
+			64,
 		)
 
 	// =====================================
@@ -695,7 +699,7 @@ func (h *TicketHandler) ExportTickets(c *gin.Context) {
 // @Router /api/tickets/{ticketID} [get]
 func (h *TicketHandler) GetTicketByID(c *gin.Context) {
 
-	ticketID, err := strconv.Atoi(c.Param("ticketID"))
+	ticketID, err := strconv.ParseInt(c.Param("ticketID"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Success: false,
@@ -829,7 +833,7 @@ func (h *TicketHandler) CreateTicket(c *gin.Context) {
 // @Router /api/tickets/{ticketID} [put]
 func (h *TicketHandler) UpdateTicket(c *gin.Context) {
 
-	ticketID, err := strconv.Atoi(c.Param("ticketID"))
+	ticketID, err := strconv.ParseInt(c.Param("ticketID"), 10, 64)
 	if err != nil {
 
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
@@ -927,7 +931,7 @@ func (h *TicketHandler) UpdateTicket(c *gin.Context) {
 // @Failure 500 {object} models.ErrorResponse
 // @Router /api/tickets/{id} [delete]
 func (h *TicketHandler) DeleteTicket(c *gin.Context) {
-	ticketID, err := strconv.Atoi(c.Param("id"))
+	ticketID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Success: false,
@@ -997,8 +1001,10 @@ func (h *TicketHandler) AddComment(
 		"ticketID",
 	)
 
-	ticketID, err := strconv.Atoi(
+	ticketID, err := strconv.ParseInt(
 		ticketIDParam,
+		10,
+		64,
 	)
 
 	if err != nil {
@@ -1137,7 +1143,7 @@ func (h *TicketHandler) AddComment(
 // @Failure 500 {object} models.ErrorResponse
 // @Router /api/comments/{commentID} [put]
 func (h *TicketHandler) UpdateComment(c *gin.Context) {
-	commentID, err := strconv.Atoi(c.Param("commentID"))
+	commentID, err := strconv.ParseInt(c.Param("commentID"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Success: false,
@@ -1210,10 +1216,12 @@ func (h *TicketHandler) UpdateComment(c *gin.Context) {
 func (h *TicketHandler) DeleteComment(c *gin.Context) {
 
 	commentID, err :=
-		strconv.Atoi(
+		strconv.ParseInt(
 			c.Param(
 				"commentID",
 			),
+			10,
+			64,
 		)
 
 	if err != nil {
@@ -1312,8 +1320,10 @@ func (h *TicketHandler) GetComments(
 
 	ticketIDParam := c.Param("ticketID")
 
-	ticketID, err := strconv.Atoi(
+	ticketID, err := strconv.ParseInt(
 		ticketIDParam,
+		10,
+		64,
 	)
 
 	if err != nil {
@@ -1398,7 +1408,7 @@ func (h *TicketHandler) AddAttachment(
 		c.Param("ticketID")
 
 	ticketID, err :=
-		strconv.Atoi(ticketIDParam)
+		strconv.ParseInt(ticketIDParam, 10, 64)
 
 	if err != nil {
 
@@ -1609,7 +1619,7 @@ func (h *TicketHandler) AddAttachment(
 // @Failure 500 {object} models.ErrorResponse
 // @Router /api/attachments/{attachmentID} [delete]
 func (h *TicketHandler) DeleteAttachment(c *gin.Context) {
-	attachmentID, err := strconv.Atoi(c.Param("attachmentID"))
+	attachmentID, err := strconv.ParseInt(c.Param("attachmentID"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Success: false,

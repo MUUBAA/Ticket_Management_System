@@ -18,7 +18,7 @@ func (s *EmailService) SendTicketCreatedEmail(
 
 	ccEmails []string,
 
-	ticketID int,
+	ticketID int64,
 
 	ticketTitle string,
 
@@ -173,7 +173,7 @@ http://164.52.217.188:8082/
 
 func (s *EmailService) SendCommentNotificationEmail(
 	toEmail string,
-	ticketID int,
+	ticketID int64,
 	ticketTitle string,
 	commentedUser string,
 	commentMessage string,
